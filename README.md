@@ -1,59 +1,34 @@
 # StockTrack
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.1.
+StockTrack es una aplicación web desarrollada en **Angular** diseñada para optimizar la gestión de inventario y el seguimiento de lotes próximos a vencer o caducados.
 
-## Development server
+## ¿Qué hace el proyecto?
 
-To start a local development server, run:
+La aplicación permite a los usuarios **subir un archivo Excel** (`.xlsx`, `.xls`, `.csv`) con el listado actual del inventario (incluyendo información como lote, cantidades libres/bloqueadas/inspección y código de material). A partir de estos datos, el sistema:
+
+1. **Analiza el código de lote** para extraer automáticamente la fecha de producción.
+2. **Calcula la fecha de vencimiento** basándose en el tipo de producto (p. ej. ANFO, EMULTEX, APD).
+3. **Clasifica el estado** de cada lote en: `Vencido`, `Próximo a Vencer` (< 6 meses) o `Activo`. Si el lote tiene un formato desconocido, permite ingresar la fecha manualmente (`Error Fecha`).
+4. **Visualiza y resume** la información mediante tarjetas de KPI (indicadores) y una tabla interactiva que incluye **paginación y filtros cruzados** por producto, estado y rangos de fechas.
+
+---
+
+Este proyecto fue generado usando [Angular CLI](https://github.com/angular/angular-cli) versión 21.2.1.
+
+## Servidor de desarrollo
+
+Para iniciar un servidor de desarrollo local, ejecuta:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Una vez que el servidor esté en funcionamiento, abre tu navegador y visita `http://localhost:4200/`. La aplicación se recargará automáticamente cada vez que modifiques alguno de los archivos fuente.
 
-## Code scaffolding
+## Ejecución de pruebas unitarias
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Para ejecutar las pruebas unitarias con el entorno de pruebas [Vitest](https://vitest.dev/), usa el siguiente comando:
 
 ```bash
 ng test
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
