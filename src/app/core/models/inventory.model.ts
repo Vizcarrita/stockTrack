@@ -3,7 +3,7 @@ export interface ExcelRow {
     'Descripción material': string;
     Almacén: string;
     'Libre utilización': number | string;
-    'Inspección calidad': number | string;
+    'Inspecc.de calidad': number | string;
     'Stock bloqueado': number | string;
     Lote: string;
 }

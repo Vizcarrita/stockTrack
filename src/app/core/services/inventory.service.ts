@@ -88,7 +88,7 @@ export class InventoryService {
 
         const processed = rows.map((row, index) => {
             const qty = this.parseNumber(row['Libre utilización']) +
-                this.parseNumber(row['Inspección calidad']) +
+                this.parseNumber(row['Inspecc.de calidad']) +
                 this.parseNumber(row['Stock bloqueado']);
 
             let match = null;
