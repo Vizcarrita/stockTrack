@@ -1,0 +1,84 @@
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Lote</th>
+                <th>Producto</th>
+                <th>Fecha Producción</th>
+                <th>Fecha Vencimiento</th>
+                <th>Estado</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of inventoryService.paginatedItems(); track item.id) {
+            <tr>
+                <td style="font-weight: 500;">{{ item.lote }}</td>
+                <td>{{ item.producto }}</td>
+                <td>
+                    @if (item.rawProductionDateError) {
+                    <div style="display:flex; flex-direction:column; gap:0.25rem;">
+                        <span style="color:var(--danger); font-size: 0.8rem;">Fallo lectura. Ingresa manual:</span>
+                        <input type="date" class="form-control" style="padding:0.25rem;"
+                            (change)="onManualDateChange(item, $event)">
+                    </div>
+                    } @else {
+                    {{ item.fechaProduccion | date:'dd/MM/yyyy' }}
+                    }
+                </td>
+                <td>
+                    {{ item.fechaVencimiento ? (item.fechaVencimiento | date:'dd/MM/yyyy') : '-' }}
+                </td>
+                <td>
+                    <span class="badge" [ngClass]="{
+              'badge-VENCIDO': item.estado === 'VENCIDO',
+              'badge-Próximo': item.estado === 'Próximo a Vencer',
+              'badge-Activo': item.estado === 'Activo',
+              'badge-Error': item.estado === 'Error Fecha'
+            }">
+                        {{ item.estado }}
+                    </span>
+                </td>
+                <td>{{ item.cantidad | number }}</td>
+            </tr>
+            }
+            @if (inventoryService.filteredItems().length === 0) {
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                    Sube un archivo Excel para visualizar los lotes, o ajusta los filtros para ver resultados.
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Pagination -->
+@if (inventoryService.filteredItems().length > 0) {
+<div class="pagination">
+    <div class="pagination-info">
+        Mostrando {{ (inventoryService.currentPage() - 1) * inventoryService.itemsPerPage + 1 }} - {{
+        (inventoryService.currentPage() * inventoryService.itemsPerPage >
+        inventoryService.filteredItems().length) ? inventoryService.filteredItems().length :
+        (inventoryService.currentPage() * inventoryService.itemsPerPage) }} de {{
+        inventoryService.filteredItems().length }} resultados
+    </div>
+    <div class="pagination-controls">
+        <button class="btn-page" [disabled]="inventoryService.currentPage() === 1"
+            (click)="inventoryService.setPage(inventoryService.currentPage() - 1)">Anterior</button>
+        <span class="page-indicator">Página {{ inventoryService.currentPage() }} de {{ inventoryService.totalPages()
+            }}</span>
+        <button class="btn-page" [disabled]="inventoryService.currentPage() === inventoryService.totalPages()"
+            (click)="inventoryService.setPage(inventoryService.currentPage() + 1)">Siguiente</button>
+    </div>
+</div>
+}
+
+@if (inventoryService.lastUpdate()) {
+<div style="font-size: 0.85rem; color: var(--text-color); margin-top: 0.75rem; text-align: left; font-weight: 500;">
+    📅 Último reporte: <span style="font-weight: normal;">{{ inventoryService.lastUpdate() | date:'dd/MM/yyyy HH:mm:ss'
+        }}</span>
+</div>
+}

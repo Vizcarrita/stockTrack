@@ -1,0 +1,15 @@
+<div class="kpi-grid">
+    <div class="kpi-card kpi-vencidos">
+        <div class="kpi-title">Lotes Vencidos</div>
+        <div class="kpi-value">{{ inventoryService.kpiVencidos() }}</div>
+    </div>
+    <div class="kpi-card kpi-proximos">
+        <div class="kpi-title">Próximos a Vencer <span style="font-size:0.8rem; font-weight:normal;">(&lt;6
+                meses)</span></div>
+        <div class="kpi-value">{{ inventoryService.kpiProximos() }}</div>
+    </div>
+    <div class="kpi-card kpi-total">
+        <div class="kpi-title">Total Inventario (Cant.)</div>
+        <div class="kpi-value">{{ inventoryService.kpiTotal() | number }}</div>
+    </div>
+</div>
