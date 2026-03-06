@@ -8,6 +8,7 @@
                 <th>Fecha Vencimiento</th>
                 <th>Estado</th>
                 <th>Cantidad</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -40,11 +41,16 @@
                     </span>
                 </td>
                 <td>{{ item.cantidad | number }}</td>
+                <td style="text-align: center;">
+                    <button class="btn-delete" (click)="onRemoveItem(item)" title="Eliminar producto de la vista">
+                        🗑️
+                    </button>
+                </td>
             </tr>
             }
             @if (inventoryService.filteredItems().length === 0) {
             <tr>
-                <td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                <td colspan="7" style="text-align: center; padding: 2rem; color: var(--text-muted);">
                     Sube un archivo Excel para visualizar los lotes, o ajusta los filtros para ver resultados.
                 </td>
             </tr>

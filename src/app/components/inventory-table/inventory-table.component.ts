@@ -13,6 +13,10 @@ import { ProcessedItem } from '../../core/models/inventory.model';
 export class InventoryTableComponent {
     inventoryService = inject(InventoryService);
 
+    onRemoveItem(item: ProcessedItem) {
+        this.inventoryService.removeItem(item.id);
+    }
+
     onManualDateChange(item: ProcessedItem, event: Event) {
         const input = event.target as HTMLInputElement;
         if (input.value) {

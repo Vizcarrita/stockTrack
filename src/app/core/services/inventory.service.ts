@@ -179,6 +179,10 @@ export class InventoryService {
         return 0;
     }
 
+    removeItem(id: string) {
+        this.items.update(current => current.filter(i => i.id !== id));
+    }
+
     updateManualDate(item: ProcessedItem, dateString: string) {
         if (!dateString) return;
 
